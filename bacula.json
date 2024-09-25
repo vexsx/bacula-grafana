@@ -15,8 +15,8 @@
         }
       ]
     },
-    "description": "bacula dash",
-    "editable": true,
+    "description": "bacula dashboard",
+    "editable": false,
     "fiscalYearStartMonth": 0,
     "graphTooltip": 0,
     "id": 1,
@@ -1423,7 +1423,7 @@
             }
           }
         ],
-        "title": "Backup Sizes Total from day 0",
+        "title": "Backup Sizes per Type/Host",
         "transformations": [
           {
             "id": "reduce",
@@ -1582,6 +1582,6 @@
     "timezone": "",
     "title": "Bacula",
     "uid": "fdyrq1t1i93i8a",
-    "version": 11,
+    "version": 12,
     "weekStart": ""
   }
