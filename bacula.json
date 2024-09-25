@@ -1,0 +1,1587 @@
+{
+    "annotations": {
+      "list": [
+        {
+          "builtIn": 1,
+          "datasource": {
+            "type": "datasource",
+            "uid": "grafana"
+          },
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "type": "dashboard"
+        }
+      ]
+    },
+    "description": "bacula dash",
+    "editable": true,
+    "fiscalYearStartMonth": 0,
+    "graphTooltip": 0,
+    "id": 1,
+    "links": [],
+    "panels": [
+      {
+        "datasource": {
+          "default": true,
+          "type": "grafana-postgresql-datasource",
+          "uid": "bdyu99xi57qpsf"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "custom": {
+              "align": "auto",
+              "cellOptions": {
+                "type": "auto"
+              },
+              "inspect": false
+            },
+            "mappings": [
+              {
+                "options": {
+                  "match": "null",
+                  "result": {
+                    "text": "N/A"
+                  }
+                },
+                "type": "special"
+              },
+              {
+                "options": {
+                  "1": {
+                    "text": "UP"
+                  }
+                },
+                "type": "value"
+              },
+              {
+                "options": {
+                  "0": {
+                    "text": "DOWN"
+                  }
+                },
+                "type": "value"
+              }
+            ],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "rgb(36, 176, 0)",
+                  "value": null
+                },
+                {
+                  "color": "rgba(237, 129, 40, 0.89)",
+                  "value": 50
+                },
+                {
+                  "color": "#d44a3a",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "none"
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "name"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 294
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "jobstatus"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 103
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "jobid"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 71
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "jobbytes"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 73
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "starttime"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 185
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 14,
+          "x": 0,
+          "y": 0
+        },
+        "id": 16,
+        "maxDataPoints": 100,
+        "options": {
+          "cellHeight": "sm",
+          "footer": {
+            "countRows": false,
+            "fields": "",
+            "reducer": [
+              "sum"
+            ],
+            "show": false
+          },
+          "showHeader": true,
+          "sortBy": [
+            {
+              "desc": true,
+              "displayName": "jobid"
+            }
+          ]
+        },
+        "pluginVersion": "11.2.0",
+        "targets": [
+          {
+            "application": {
+              "filter": "Bacula"
+            },
+            "datasource": {
+              "uid": "riozabbix"
+            },
+            "editorMode": "code",
+            "format": "table",
+            "functions": [],
+            "group": {
+              "filter": "Linux servers"
+            },
+            "host": {
+              "filter": "riobac001"
+            },
+            "item": {
+              "filter": "Bacula Director is running"
+            },
+            "mode": 0,
+            "options": {
+              "showDisabledItems": false
+            },
+            "rawQuery": true,
+            "rawSql": "SELECT JobId, Name, JobStatus, JobBytes, StartTime, EndTime\r\nFROM Job\r\nWHERE JobStatus != 'T'\r\nORDER BY EndTime DESC;",
+            "refId": "A",
+            "sql": {
+              "columns": [
+                {
+                  "parameters": [
+                    {
+                      "name": "name",
+                      "type": "functionParameter"
+                    }
+                  ],
+                  "type": "function"
+                }
+              ],
+              "groupBy": [
+                {
+                  "property": {
+                    "type": "string"
+                  },
+                  "type": "groupBy"
+                }
+              ],
+              "limit": 50
+            },
+            "table": "client",
+            "triggers": {
+              "acknowledged": 2,
+              "count": true,
+              "minSeverity": 3
+            }
+          }
+        ],
+        "title": "Failed jobs",
+        "type": "table"
+      },
+      {
+        "datasource": {
+          "default": true,
+          "type": "grafana-postgresql-datasource",
+          "uid": "bdyu99xi57qpsf"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "mappings": [],
+            "thresholds": {
+              "mode": "percentage",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "orange",
+                  "value": 70
+                },
+                {
+                  "color": "red",
+                  "value": 85
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 10,
+          "x": 14,
+          "y": 0
+        },
+        "id": 17,
+        "options": {
+          "minVizHeight": 75,
+          "minVizWidth": 75,
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showThresholdLabels": false,
+          "showThresholdMarkers": true,
+          "sizing": "auto"
+        },
+        "pluginVersion": "11.2.0",
+        "targets": [
+          {
+            "datasource": {
+              "type": "grafana-postgresql-datasource",
+              "uid": "bdyu99xi57qpsf"
+            },
+            "editorMode": "code",
+            "format": "table",
+            "rawQuery": true,
+            "rawSql": "SELECT COUNT(name) AS failed_jobs\r\nFROM job\r\nWHERE jobStatus = 'f'\r\nAND endTime >= NOW() - INTERVAL '1 days';\r\n",
+            "refId": "A",
+            "sql": {
+              "columns": [
+                {
+                  "parameters": [],
+                  "type": "function"
+                }
+              ],
+              "groupBy": [
+                {
+                  "property": {
+                    "type": "string"
+                  },
+                  "type": "groupBy"
+                }
+              ],
+              "limit": 50
+            }
+          }
+        ],
+        "title": "Faild Job alerts",
+        "type": "gauge"
+      },
+      {
+        "datasource": {
+          "default": true,
+          "type": "grafana-postgresql-datasource",
+          "uid": "bdyu99xi57qpsf"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "custom": {
+              "align": "auto",
+              "cellOptions": {
+                "type": "auto"
+              },
+              "inspect": false
+            },
+            "decimals": 2,
+            "displayName": "",
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "short"
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "count"
+              },
+              "properties": [
+                {
+                  "id": "unit",
+                  "value": "none"
+                },
+                {
+                  "id": "custom.align"
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 7,
+          "w": 5,
+          "x": 0,
+          "y": 8
+        },
+        "id": 8,
+        "options": {
+          "cellHeight": "sm",
+          "footer": {
+            "countRows": false,
+            "fields": "",
+            "reducer": [
+              "sum"
+            ],
+            "show": false
+          },
+          "showHeader": true
+        },
+        "pluginVersion": "11.2.0",
+        "targets": [
+          {
+            "alias": "",
+            "datasource": {
+              "uid": "Bacula"
+            },
+            "editorMode": "code",
+            "format": "table",
+            "rawQuery": true,
+            "rawSql": "SELECT JobStatus AS JobStatus, COUNT(*) AS count FROM job GROUP BY JobStatus ORDER BY count DESC\n",
+            "refId": "A",
+            "sql": {
+              "columns": [
+                {
+                  "parameters": [],
+                  "type": "function"
+                }
+              ],
+              "groupBy": [
+                {
+                  "property": {
+                    "type": "string"
+                  },
+                  "type": "groupBy"
+                }
+              ],
+              "limit": 50
+            }
+          }
+        ],
+        "title": "Terminates status of Jobs",
+        "transformations": [
+          {
+            "id": "merge",
+            "options": {
+              "reducers": []
+            }
+          }
+        ],
+        "type": "table"
+      },
+      {
+        "datasource": {
+          "default": true,
+          "type": "grafana-postgresql-datasource",
+          "uid": "bdyu99xi57qpsf"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "custom": {
+              "align": "auto",
+              "cellOptions": {
+                "type": "auto"
+              },
+              "inspect": false
+            },
+            "decimals": 2,
+            "displayName": "",
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "short"
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "Time"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Time"
+                },
+                {
+                  "id": "unit",
+                  "value": "decbytes"
+                },
+                {
+                  "id": "custom.align"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "size"
+              },
+              "properties": [
+                {
+                  "id": "unit",
+                  "value": "decbytes"
+                },
+                {
+                  "id": "decimals",
+                  "value": 2
+                },
+                {
+                  "id": "custom.align"
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 7,
+          "w": 7,
+          "x": 5,
+          "y": 8
+        },
+        "id": 9,
+        "options": {
+          "cellHeight": "sm",
+          "footer": {
+            "countRows": false,
+            "fields": "",
+            "reducer": [
+              "sum"
+            ],
+            "show": false
+          },
+          "showHeader": true
+        },
+        "pluginVersion": "11.2.0",
+        "targets": [
+          {
+            "alias": "",
+            "datasource": {
+              "uid": "Bacula"
+            },
+            "editorMode": "code",
+            "format": "table",
+            "rawQuery": true,
+            "rawSql": "SELECT Name AS Name, SUM(Job.JobBytes) AS Size FROM job GROUP BY Name ORDER BY Size DESC LIMIT 50000;\r\n",
+            "refId": "A",
+            "sql": {
+              "columns": [
+                {
+                  "parameters": [],
+                  "type": "function"
+                }
+              ],
+              "groupBy": [
+                {
+                  "property": {
+                    "type": "string"
+                  },
+                  "type": "groupBy"
+                }
+              ],
+              "limit": 50
+            }
+          }
+        ],
+        "title": "Size of Jobs",
+        "transformations": [
+          {
+            "id": "merge",
+            "options": {
+              "reducers": []
+            }
+          }
+        ],
+        "type": "table"
+      },
+      {
+        "datasource": {
+          "default": true,
+          "type": "grafana-postgresql-datasource",
+          "uid": "bdyu99xi57qpsf"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "custom": {
+              "align": "auto",
+              "cellOptions": {
+                "type": "auto"
+              },
+              "inspect": false
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 7,
+          "w": 6,
+          "x": 12,
+          "y": 8
+        },
+        "id": 11,
+        "maxDataPoints": 3,
+        "options": {
+          "cellHeight": "sm",
+          "footer": {
+            "countRows": false,
+            "fields": "",
+            "reducer": [
+              "sum"
+            ],
+            "show": false
+          },
+          "showHeader": true
+        },
+        "pluginVersion": "11.2.0",
+        "targets": [
+          {
+            "alias": "",
+            "application": {
+              "filter": "Filesystem"
+            },
+            "datasource": {
+              "uid": "riozabbix"
+            },
+            "editorMode": "code",
+            "format": "table",
+            "functions": [],
+            "group": {
+              "filter": "Linux servers"
+            },
+            "hide": false,
+            "host": {
+              "filter": "riobac001"
+            },
+            "item": {
+              "filter": "Total disk space on /"
+            },
+            "mode": 0,
+            "options": {
+              "showDisabledItems": false
+            },
+            "rawQuery": true,
+            "rawSql": "SELECT name,numvols From pool;\n",
+            "refId": "A",
+            "sql": {
+              "columns": [
+                {
+                  "parameters": [],
+                  "type": "function"
+                }
+              ],
+              "groupBy": [
+                {
+                  "property": {
+                    "type": "string"
+                  },
+                  "type": "groupBy"
+                }
+              ],
+              "limit": 50
+            },
+            "triggers": {
+              "acknowledged": 2,
+              "count": true,
+              "minSeverity": 3
+            }
+          },
+          {
+            "application": {
+              "filter": "Filesystem"
+            },
+            "datasource": {
+              "uid": "riozabbix"
+            },
+            "functions": [],
+            "group": {
+              "filter": "Linux servers"
+            },
+            "hide": false,
+            "host": {
+              "filter": "riobac001"
+            },
+            "item": {
+              "filter": "Used disk space on /"
+            },
+            "mode": 0,
+            "options": {
+              "showDisabledItems": false
+            },
+            "refId": "B",
+            "triggers": {
+              "acknowledged": 2,
+              "count": true,
+              "minSeverity": 3
+            }
+          }
+        ],
+        "title": "/",
+        "type": "table"
+      },
+      {
+        "datasource": {
+          "default": true,
+          "type": "grafana-postgresql-datasource",
+          "uid": "bdyu99xi57qpsf"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "mappings": [
+              {
+                "options": {
+                  "match": "null",
+                  "result": {
+                    "text": "N/A"
+                  }
+                },
+                "type": "special"
+              }
+            ],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "#0a50a1",
+                  "value": null
+                },
+                {
+                  "color": "rgba(237, 129, 40, 0.89)",
+                  "value": 50
+                },
+                {
+                  "color": "#d44a3a",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "none"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 14,
+          "w": 6,
+          "x": 18,
+          "y": 8
+        },
+        "id": 14,
+        "maxDataPoints": 100,
+        "options": {
+          "colorMode": "background",
+          "graphMode": "none",
+          "justifyMode": "auto",
+          "orientation": "horizontal",
+          "percentChangeColorMode": "standard",
+          "reduceOptions": {
+            "calcs": [
+              "mean"
+            ],
+            "fields": "/^count$/",
+            "values": false
+          },
+          "showPercentChange": false,
+          "textMode": "auto",
+          "wideLayout": true
+        },
+        "pluginVersion": "11.2.0",
+        "targets": [
+          {
+            "alias": "",
+            "datasource": {
+              "uid": "Bacula"
+            },
+            "editorMode": "code",
+            "format": "table",
+            "rawQuery": true,
+            "rawSql": "SELECT COUNT(name) FROM pool;\n",
+            "refId": "A",
+            "sql": {
+              "columns": [
+                {
+                  "parameters": [],
+                  "type": "function"
+                }
+              ],
+              "groupBy": [
+                {
+                  "property": {
+                    "type": "string"
+                  },
+                  "type": "groupBy"
+                }
+              ],
+              "limit": 50
+            }
+          }
+        ],
+        "title": "Pools",
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "default": true,
+          "type": "grafana-postgresql-datasource",
+          "uid": "bdyu99xi57qpsf"
+        },
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "mappings": [
+              {
+                "options": {
+                  "match": "null",
+                  "result": {
+                    "text": "N/A"
+                  }
+                },
+                "type": "special"
+              }
+            ],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "#299c46",
+                  "value": null
+                },
+                {
+                  "color": "rgba(237, 129, 40, 0.89)",
+                  "value": 50
+                },
+                {
+                  "color": "#d44a3a",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "none"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 7,
+          "w": 6,
+          "x": 0,
+          "y": 15
+        },
+        "id": 5,
+        "maxDataPoints": 100,
+        "options": {
+          "colorMode": "background",
+          "graphMode": "none",
+          "justifyMode": "auto",
+          "orientation": "horizontal",
+          "percentChangeColorMode": "standard",
+          "reduceOptions": {
+            "calcs": [
+              "mean"
+            ],
+            "fields": "/^count$/",
+            "values": false
+          },
+          "showPercentChange": false,
+          "textMode": "auto",
+          "wideLayout": true
+        },
+        "pluginVersion": "11.2.0",
+        "targets": [
+          {
+            "alias": "",
+            "datasource": {
+              "uid": "Bacula"
+            },
+            "editorMode": "code",
+            "format": "table",
+            "rawQuery": true,
+            "rawSql": "SELECT\n  count(Name)\nFROM\n  client;\n",
+            "refId": "A",
+            "sql": {
+              "columns": [
+                {
+                  "parameters": [],
+                  "type": "function"
+                }
+              ],
+              "groupBy": [
+                {
+                  "property": {
+                    "type": "string"
+                  },
+                  "type": "groupBy"
+                }
+              ],
+              "limit": 50
+            }
+          }
+        ],
+        "title": "Bacula Clients",
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "default": true,
+          "type": "grafana-postgresql-datasource",
+          "uid": "bdyu99xi57qpsf"
+        },
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "rgb(31, 120, 193)",
+              "mode": "fixed"
+            },
+            "mappings": [
+              {
+                "options": {
+                  "match": "null",
+                  "result": {
+                    "text": "N/A"
+                  }
+                },
+                "type": "special"
+              }
+            ],
+            "max": 200000000000000,
+            "min": 10,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "#1f78c1",
+                  "value": null
+                },
+                {
+                  "color": "#1f78c1",
+                  "value": 1
+                },
+                {
+                  "color": "#1f78c1",
+                  "value": 2
+                }
+              ]
+            },
+            "unit": "decbytes"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 7,
+          "w": 6,
+          "x": 6,
+          "y": 15
+        },
+        "id": 7,
+        "maxDataPoints": 100,
+        "options": {
+          "colorMode": "none",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "horizontal",
+          "percentChangeColorMode": "standard",
+          "reduceOptions": {
+            "calcs": [
+              "mean"
+            ],
+            "fields": "/^sum$/",
+            "values": false
+          },
+          "showPercentChange": false,
+          "textMode": "auto",
+          "wideLayout": true
+        },
+        "pluginVersion": "11.2.0",
+        "targets": [
+          {
+            "alias": "",
+            "datasource": {
+              "uid": "Bacula"
+            },
+            "editorMode": "code",
+            "format": "table",
+            "rawQuery": true,
+            "rawSql": "SELECT SUM(VolBytes) FROM media ;\n",
+            "refId": "A",
+            "sql": {
+              "columns": [
+                {
+                  "parameters": [],
+                  "type": "function"
+                }
+              ],
+              "groupBy": [
+                {
+                  "property": {
+                    "type": "string"
+                  },
+                  "type": "groupBy"
+                }
+              ],
+              "limit": 50
+            }
+          }
+        ],
+        "title": "Volume Size of CGG Backup",
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "default": true,
+          "type": "grafana-postgresql-datasource",
+          "uid": "bdyu99xi57qpsf"
+        },
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "mappings": [
+              {
+                "options": {
+                  "match": "null",
+                  "result": {
+                    "text": "N/A"
+                  }
+                },
+                "type": "special"
+              }
+            ],
+            "max": 100,
+            "min": 0,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "none"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 7,
+          "w": 6,
+          "x": 12,
+          "y": 15
+        },
+        "id": 6,
+        "maxDataPoints": 100,
+        "options": {
+          "colorMode": "none",
+          "graphMode": "none",
+          "justifyMode": "auto",
+          "orientation": "horizontal",
+          "percentChangeColorMode": "standard",
+          "reduceOptions": {
+            "calcs": [
+              "mean"
+            ],
+            "fields": "/^count$/",
+            "values": false
+          },
+          "showPercentChange": false,
+          "textMode": "auto",
+          "wideLayout": true
+        },
+        "pluginVersion": "11.2.0",
+        "targets": [
+          {
+            "alias": "",
+            "datasource": {
+              "uid": "Bacula"
+            },
+            "editorMode": "code",
+            "format": "table",
+            "rawQuery": true,
+            "rawSql": "SELECT\n  count(VolumeName)\nFROM\n  media\n;",
+            "refId": "A",
+            "sql": {
+              "columns": [
+                {
+                  "parameters": [],
+                  "type": "function"
+                }
+              ],
+              "groupBy": [
+                {
+                  "property": {
+                    "type": "string"
+                  },
+                  "type": "groupBy"
+                }
+              ],
+              "limit": 50
+            }
+          }
+        ],
+        "title": "Number of Tapes",
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "default": true,
+          "type": "grafana-postgresql-datasource",
+          "uid": "bdyu99xi57qpsf"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "custom": {
+              "align": "auto",
+              "cellOptions": {
+                "type": "auto"
+              },
+              "inspect": false
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "jobid"
+              },
+              "properties": [
+                {
+                  "id": "unit",
+                  "value": "none"
+                },
+                {
+                  "id": "custom.align"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "starttime"
+              },
+              "properties": [
+                {
+                  "id": "unit",
+                  "value": "short"
+                },
+                {
+                  "id": "decimals",
+                  "value": 2
+                },
+                {
+                  "id": "unit",
+                  "value": "time: YYYY-MM-DD HH:mm:ss"
+                },
+                {
+                  "id": "custom.align"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "endtime"
+              },
+              "properties": [
+                {
+                  "id": "unit",
+                  "value": "short"
+                },
+                {
+                  "id": "decimals",
+                  "value": 2
+                },
+                {
+                  "id": "unit",
+                  "value": "time: YYYY-MM-DD HH:mm:ss"
+                },
+                {
+                  "id": "custom.align"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "jobbytes"
+              },
+              "properties": [
+                {
+                  "id": "unit",
+                  "value": "decbytes"
+                },
+                {
+                  "id": "decimals",
+                  "value": 2
+                },
+                {
+                  "id": "custom.align"
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 24,
+          "x": 0,
+          "y": 22
+        },
+        "id": 10,
+        "options": {
+          "cellHeight": "sm",
+          "footer": {
+            "countRows": false,
+            "fields": "",
+            "reducer": [
+              "sum"
+            ],
+            "show": false
+          },
+          "showHeader": true,
+          "sortBy": [
+            {
+              "desc": true,
+              "displayName": "jobid"
+            }
+          ]
+        },
+        "pluginVersion": "11.2.0",
+        "targets": [
+          {
+            "alias": "",
+            "datasource": {
+              "uid": "Bacula"
+            },
+            "editorMode": "code",
+            "format": "table",
+            "rawQuery": true,
+            "rawSql": "select JobID,Name,JobStatus,StartTime,EndTime,Level,JobFiles,JobBytes FROM job  ORDER BY StartTime DESC LIMIT 500;\r\n",
+            "refId": "A",
+            "sql": {
+              "columns": [
+                {
+                  "parameters": [],
+                  "type": "function"
+                }
+              ],
+              "groupBy": [
+                {
+                  "property": {
+                    "type": "string"
+                  },
+                  "type": "groupBy"
+                }
+              ],
+              "limit": 50
+            }
+          }
+        ],
+        "title": "Last 500 Jobs",
+        "transformations": [
+          {
+            "id": "merge",
+            "options": {
+              "reducers": []
+            }
+          }
+        ],
+        "type": "table"
+      },
+      {
+        "datasource": {
+          "default": true,
+          "type": "grafana-postgresql-datasource",
+          "uid": "bdyu99xi57qpsf"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisBorderShow": false,
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "fillOpacity": 80,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineWidth": 1,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "decmbytes"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 16,
+          "w": 24,
+          "x": 0,
+          "y": 30
+        },
+        "id": 13,
+        "options": {
+          "barRadius": 0,
+          "barWidth": 0.97,
+          "fullHighlight": false,
+          "groupWidth": 0.7,
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "orientation": "auto",
+          "showValue": "auto",
+          "stacking": "none",
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          },
+          "xTickLabelRotation": 0,
+          "xTickLabelSpacing": 0
+        },
+        "targets": [
+          {
+            "alias": "",
+            "application": {
+              "filter": "Bacula"
+            },
+            "datasource": {
+              "uid": "riozabbix"
+            },
+            "editorMode": "code",
+            "format": "table",
+            "functions": [],
+            "group": {
+              "filter": "Rio Bacula"
+            },
+            "hide": false,
+            "host": {
+              "filter": "/.*/"
+            },
+            "item": {
+              "filter": "/Backup.*Bytes/"
+            },
+            "mode": 0,
+            "options": {
+              "showDisabledItems": false
+            },
+            "rawQuery": true,
+            "rawSql": "SELECT SUM(jobbytes) / 1048576 AS Megabytes FROM job;\r\n",
+            "refId": "A",
+            "sql": {
+              "columns": [
+                {
+                  "parameters": [],
+                  "type": "function"
+                }
+              ],
+              "groupBy": [
+                {
+                  "property": {
+                    "type": "string"
+                  },
+                  "type": "groupBy"
+                }
+              ],
+              "limit": 50
+            },
+            "triggers": {
+              "acknowledged": 2,
+              "count": true,
+              "minSeverity": 3
+            }
+          }
+        ],
+        "title": "Backup Sizes Total from day 0",
+        "transformations": [
+          {
+            "id": "reduce",
+            "options": {
+              "reducers": [
+                "current"
+              ]
+            }
+          }
+        ],
+        "type": "barchart"
+      },
+      {
+        "datasource": {
+          "default": true,
+          "type": "grafana-postgresql-datasource",
+          "uid": "bdyu99xi57qpsf"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "custom": {
+              "align": "auto",
+              "cellOptions": {
+                "type": "auto"
+              },
+              "inspect": false
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green"
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "logid"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 43
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 18,
+          "w": 24,
+          "x": 0,
+          "y": 46
+        },
+        "id": 12,
+        "options": {
+          "cellHeight": "sm",
+          "footer": {
+            "countRows": false,
+            "fields": "",
+            "reducer": [
+              "sum"
+            ],
+            "show": false
+          },
+          "showHeader": true,
+          "sortBy": [
+            {
+              "desc": true,
+              "displayName": "logid"
+            }
+          ]
+        },
+        "pluginVersion": "11.2.0",
+        "targets": [
+          {
+            "datasource": {
+              "uid": "riozabbix"
+            },
+            "editorMode": "code",
+            "format": "table",
+            "rawQuery": true,
+            "rawSql": "SELECT logid,logtext FROM log ;",
+            "refId": "A",
+            "sql": {
+              "columns": [
+                {
+                  "parameters": [],
+                  "type": "function"
+                }
+              ],
+              "groupBy": [
+                {
+                  "property": {
+                    "type": "string"
+                  },
+                  "type": "groupBy"
+                }
+              ],
+              "limit": 50
+            }
+          }
+        ],
+        "title": "Logs  per jobid",
+        "type": "table"
+      }
+    ],
+    "refresh": false,
+    "schemaVersion": 39,
+    "tags": [
+      "bacula"
+    ],
+    "templating": {
+      "list": []
+    },
+    "time": {
+      "from": "now-7d",
+      "to": "now"
+    },
+    "timepicker": {
+      "refresh_intervals": [
+        "5s",
+        "10s",
+        "30s",
+        "1m",
+        "5m",
+        "15m",
+        "30m",
+        "1h",
+        "2h",
+        "1d"
+      ],
+      "time_options": [
+        "5m",
+        "15m",
+        "1h",
+        "6h",
+        "12h",
+        "24h",
+        "2d",
+        "7d",
+        "30d"
+      ]
+    },
+    "timezone": "",
+    "title": "Bacula",
+    "uid": "fdyrq1t1i93i8a",
+    "version": 11,
+    "weekStart": ""
+  }
